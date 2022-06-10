@@ -79,7 +79,7 @@ WHERE birthCountry NOT IN ('USA'));
 -- Getting a running average of stolen bases per player, sorted by team
 
 SELECT 
-	name,
+    name,
     team,
     SB,
     AVG(SB) OVER(partition by team) AS running_avg
@@ -89,7 +89,7 @@ FROM atbats
 -- Did stolen bases correlate to more wins? This compares where each team ranks for both stolen bases and wins
 
 SELECT 
-	teamID,
+    teamID,
     SB,
     W,
     RANK () OVER (order by SB DESC) as SB_rank,
@@ -124,16 +124,16 @@ FROM atbats;
 
 WITH Rookie_players AS
 (SELECT  name, team, height, weight, birthyear, EXTRACT(YEAR FROM debut) AS year
-FROM players_new)
+FROM players_new
+WHERE EXTRACT(YEAR FROM debut) = 2018)
+
 
 SELECT *
 FROM Rookie_players
-WHERE year = '2018';
+WHERE HR > 10
+ORDER BY HR DESC;
 
-SELECT name, team, lg,  HR 
-FROM atbats
-ORDER BY HR DESC
-LIMIT 10;
+
 
 
 
